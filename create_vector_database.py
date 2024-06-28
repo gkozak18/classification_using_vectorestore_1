@@ -77,7 +77,16 @@ def embed_and_save_to_file(data, file_name, model="text-embedding-3-small"):
     print("time:", t2 - t1)
 
 
-def test1(ind_classes, index):
+def predict_classes(index, ind_classes, obj, k=1):
+    found_ind = list(search_by_query(index, obj, k=k)[0])
+    found_classes = []
+    for i in found_ind:
+        found_classes.append(ind_classes[i])
+    #print(*results, sep="\n")
+    return (obj, found_classes)
+
+
+def test1(ind_classes, index, k=1):
     if len(ind_classes) == 0:
         ind_classes = list(read_excel("reference_tilte_to_category_mapping_(50).xlsx").values.T[1])
         index = create_faiss_index(data=classes)
@@ -88,7 +97,7 @@ def test1(ind_classes, index):
     results = []
     res_count = 0
     for obj_ind, obj in enumerate(objects):
-        found_ind = list(search_by_query(index, obj, k=10)[0])
+        found_ind = list(search_by_query(index, obj, k=k)[0])
         found_classes = []
         for i in found_ind:
             found_classes.append(ind_classes[i])
@@ -120,4 +129,4 @@ if __name__ == "__main__":
     classes, index = create_index_from_loaded_embeddings(filename)
     print(len(classes))
     #print(list(search_by_query(index, "Truck Bed Side Rail Anchor", k=4)[0]))
-    test1(classes, index)
+    test1(classes, index, k=14)
