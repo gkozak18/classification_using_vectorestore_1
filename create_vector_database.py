@@ -104,9 +104,9 @@ def test1(ind_classes, index, k=1):
         obj_class = obj_classes[obj_ind]
         if obj_class in found_classes:
             res_count += 1
-            print("True!!!", obj_class, found_classes)
+            print("TRUE!!!", obj_class, found_classes)
         else:
-            print("False((", obj_class, found_classes)
+            print("FALSE((", obj_class, found_classes)
         results.append((obj_class, found_classes))
     print("Count:", res_count)
     #print(*results, sep="\n")
@@ -129,4 +129,4 @@ if __name__ == "__main__":
     classes, index = create_index_from_loaded_embeddings(filename)
     print(len(classes))
     #print(list(search_by_query(index, "Truck Bed Side Rail Anchor", k=4)[0]))
-    test1(classes, index, k=14)
+    test1(classes, index, k=20)
